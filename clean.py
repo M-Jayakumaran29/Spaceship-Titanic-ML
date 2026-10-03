@@ -5,6 +5,7 @@ spend_cols = ['RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']
 def clean(df):
     df = df.copy()   # work on a copy so the original stays untouched
     df['Group'] = df['PassengerId'].str.split('_').str[0]
+    df['GroupSize'] = df.groupby('Group')['PassengerId'].transform('count')
 
     #rule-7
     group_cabin = df.groupby('Group')['Cabin'].transform('first')
@@ -73,4 +74,23 @@ def fill_generic(df,fv):
     df['Destination']=df['Destination'].fillna('TRAPPIST-1e')
     df[spend_cols]=df[spend_cols].fillna(fv['spend'])
     df=df.drop(columns=['VIP','Name','TS'])
+    return df
+
+def encode(df):
+    df=df.copy()
+    planet_map = {'Earth': 0, 'Europa': 1, 'Mars': 2, 'Unknown': 3}
+    df['HomePlanet'] = df['HomePlanet'].map(planet_map)
+
+    destination={'TRAPPIST-1e':0,'PSO J318.5-22':1,'55 Cancri e':2}
+    df['Destination']=df['Destination'].map(destination)
+
+    deck={'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'T':7,'Unknown':8}
+    df['Deck']=df['Deck'].map(deck)
+
+    side={'P':0,'S':1,-1:2}
+    df['Side']=df['Side'].map(side)
+
+    df=df.drop(columns=['Group','Cabin'])
+
+
     return df

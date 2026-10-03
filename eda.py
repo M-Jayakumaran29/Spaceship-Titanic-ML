@@ -1,7 +1,7 @@
 #EDA-Exploratory Data Analysis
 
 import pandas as pd
-from clean import clean,get_fill_values,fill_generic
+from clean import clean,get_fill_values,fill_generic,encode
 
 DATA_DIR = r'D:\New folder\Spaceship Titanic\spaceship-titanic'
 
@@ -113,3 +113,16 @@ train_c = fill_generic(train_c, fv)
 print(train_c.isnull().sum())
 test_c = fill_generic(clean(test), fv)
 print(test_c.isnull().sum())
+
+##____________________________________-------------------------------------##
+##feature ##
+train_groups = set(train_c['Group'])
+test_groups = set(test_c['Group'])
+print(len(train_groups & test_groups))
+
+
+print(train_c.groupby('GroupSize')['Transported'].agg(['mean', 'count']))
+
+train_f = encode(train_c)
+print(train_f.dtypes)
+print(train_f.isnull().sum())
