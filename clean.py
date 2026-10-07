@@ -63,7 +63,7 @@ def fill_generic(df,fv):
     df=df.copy()
 
     df['HomePlanet']=df['HomePlanet'].fillna('Unknown')
-    df['CryoSleep']=df['CryoSleep'].fillna(False).astype(bool)
+    df['CryoSleep']=df['CryoSleep'].astype('boolean').fillna(False).astype(bool)
 
     df['Deck']=df['Deck'].fillna('Unknown')
     df['Num']=df['Num'].fillna(-1)
