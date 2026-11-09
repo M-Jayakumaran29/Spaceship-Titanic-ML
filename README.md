@@ -1,4 +1,4 @@
-# Spaceship Titanic – Learning-First ML
+# Spaceship Titanic 
 
 My machine learning project, on Kaggle's [Spaceship Titanic](https://www.kaggle.com/competitions/spaceship-titanic) competition: predict which passengers were transported to another dimension.
 
